@@ -1,5 +1,23 @@
+
+/* media settings */
+@media screen {
+    body {
+      width: 75%;
+    }
+  }
+  
+  @media print {
+    body {
+      width: 100%;
+    }
+  }
+
+
+
+
+/* body settings */
 body {
-    background-color: grey;
+    background-color: sandybrown;
 }
 body h1 {
     color: white;
@@ -12,4 +30,13 @@ body h2 {
 }
 nav li {
     color: white;
+    list-style-type: none;
+}
+
+
+
+/* link adjustments */
+#welcome-section {
+    height: 100vh;
+    overflow: auto;
 }
