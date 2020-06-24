@@ -1,3 +1,9 @@
+/* link adjustments */
+#welcome-section {
+    height: 100vh;
+    overflow: auto;
+}
+
 
 /* media settings */
 @media screen {
@@ -28,15 +34,14 @@ body p {
 body h2 {
     color: white;
 }
-nav li {
-    color: white;
-    list-style-type: none;
-}
+
+/* navigation */
+
+#navbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+}​
 
 
 
-/* link adjustments */
-#welcome-section {
-    height: 100vh;
-    overflow: auto;
-}
