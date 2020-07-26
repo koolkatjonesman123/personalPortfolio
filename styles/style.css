@@ -1,4 +1,7 @@
 
+body {
+    background-color: skyblue;
+}
 
 #welcome-section {
     height: 100vh;
@@ -28,23 +31,21 @@ body h1 {
     
 }​
 
-@media screen {
-    body {
-      width: 75%;
-    }
-  }
-  
-  @media print {
-    body {
-      width: 100%;
-    }
-  }
-
-
 
 
 body {
     background-color: skyblue;
+}
+
+#planettitles {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 35px;
+    font-family: 'Roboto', sans-serif;
+    color: white;
 }
 
 #projects {
