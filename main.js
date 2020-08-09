@@ -6,6 +6,9 @@ var images = [{
 }, {
     "name": "Alderaan",
     "img": "Alderaan.jpeg"
+}, {
+    "name": "Yavin IV",
+    "img": "Yavin4.png"
 }]
 /*fetchecs data endpoint and returns the body in json*/
 async function getResponseJson(endpoint) {
@@ -16,68 +19,90 @@ async function getResponseJson(endpoint) {
     return planets
 
 }
-getResponseJson('https://swapi.dev/api/planets')
-    .then(planets => {
-        var cardsBox = document.getElementById("idCards")
 
-        planets.results.map(planet => {
-            var pp = document.createElement('div')
-            pp.className = "pp"
+/**
+ * Function: generateCard
+ * Generates html cards
+ * @param cardData Json array element, with planet info
+ * 
+ */
+function generateCard(cardData) {
+    //Parent Container for cards
+    var pp = document.createElement('div')
+    pp.className = "pp"
 
-            var cardContainer = document.createElement('div')
-            cardContainer.className = "card"
+    var cardContainer = document.createElement('div')
+    cardContainer.className = "card"
 
-            var cardFront = document.createElement('div')
-            cardFront.className = "card__face card__face--front"
+    //  cardContainer.append(generateCard(planet))
 
-            var cardBack = document.createElement('div')
-            cardBack.className = "card__face card__face--back"
+    // cardsBox.appendChild(cardContainer)
+    var cardFront = document.createElement('div')
+    cardFront.className = "card__face card__face--front"
 
-            var nameTag = document.createElement('p')
-            nameTag.innerText = "planet:" + planet.name
-            // .appendChild(document.createTextNode(planet.name))
+    var cardBack = document.createElement('div')
+    cardBack.className = "card__face card__face--back"
 
-
-            cardFront.appendChild(createPTag("climate: ", planet.climate))
-
-            var l = createPTag("Gravity: ", planet.gravity)
-            cardFront.appendChild(l)
-
-            var img = images.filter(function (el) {
-                return el.name == planet.name
-            })
-            //return el.diameter > 20000
-            if (img[0] != undefined) {
-                var imgEL = document.createElement('img')
-                imgEL.src = img[0].img
-                cardBack.appendChild(imgEL)
-                cardBack.appendChild(nameTag)
-
-            } else { ///Default Image, Change if you wish
-                var imgEL = docu0ment.createElement('img')
-                imgEL.src = "Alderaan.jpeg"
-                cardBack.appendChild(imgEL)
-                cardBack.appendChild(nameTag)
-
-            }
-
-            cardContainer.appendChild(cardFront)
-            cardContainer.appendChild(cardBack)
-            pp.appendChild(cardContainer)
-            cardsBox.appendChild(pp)
-        })
+    var nameTag = document.createElement('p')
+    nameTag.innerText = cardData.name
+    // .appendChild(document.createTextNode(planet.name))
 
 
-        var card = document.querySelectorAll('.card');
+    cardBack.appendChild(createPTag("climate: ", cardData.climate))
 
-        card.forEach(card => {
-            card.addEventListener('click', function () {
-                card.classList.toggle('is-flipped');
-            });
-        })
+    var l = createPTag("Gravity: ", cardData.gravity)
+    cardBack.appendChild(l)
 
+    var elDiam = createPTag("Diameter: ", cardData.diameter)
+    cardBack.appendChild(elDiam)
+
+    var img = images.filter(function (el) {
+        return el.name == cardData.name
     })
+    //return el.diameter > 20000
+    if (img[0] != undefined) {
+        var imgEL = document.createElement('img')
+        imgEL.src = img[0].img
+        cardFront.style.backgroundImage = `url(/${img[0].img})`
+        cardFront.appendChild(nameTag)
 
+    } else { ///Default Image, Change if you wish
+        var imgEL = document.createElement('img')
+        imgEL.src = "Alderaan.jpeg"
+        //cardFront.appendChild(imgEL)
+        cardFront.style.backgroundImage = "url(/Alderaan.jpeg)"
+        cardFront.appendChild(nameTag)
+
+    }
+
+    cardContainer.appendChild(cardFront)
+    cardContainer.appendChild(cardBack)
+    pp.appendChild(cardContainer)
+    return pp
+}
+for (var i = 1; i <= 3; i++) {
+
+    getResponseJson(`https://swapi.dev/api/planets/?page=${i}`)
+        .then(planets => {
+            var cardsBox = document.getElementById("idCards")
+
+            planets.results.map(planet => {
+
+
+                cardsBox.appendChild(generateCard(planet))
+            })
+
+
+            var card = document.querySelectorAll('.card');
+
+            card.forEach(card => {
+                card.addEventListener('click', function () {
+                    card.classList.toggle('is-flipped');
+                });
+            })
+
+        })
+}
 const planetsurl = 'https://swapi.dev/api/planets';
 const ul = document.getElementById('#planets');
 
@@ -87,4 +112,38 @@ function createPTag(text, value) {
     return tag
 
 }
+
+var planetForm = document.getElementById("planetForm")
+
+function formFunction(event) {
+    var cardsBox = document.getElementById("idCards")
+
+    let formData = new FormData(planetForm)
+    var ob = {
+        "name": formData.get("name"),
+        "climate": formData.get("climate") ,
+        "diameter": formData.get("diameter") , 
+        "gravity": formData.get("gravity")   
+
+    };
+     console.log(ob)
+    //console.log(ob.name)
+    
+    
+    //console.log(formData.getAll());
+
+    cardsBox.append(generateCard(ob))
+    var card = document.querySelectorAll('.card');
+
+    card.forEach(card => {
+        card.addEventListener('click', function () {
+            card.classList.toggle('is-flipped');
+        });
+    })
+    event.preventDefault();
+}
+
+
+
+planetForm.addEventListener('submit', formFunction)
 
