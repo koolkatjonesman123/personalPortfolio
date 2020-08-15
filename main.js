@@ -34,3 +34,6 @@ for (var i = 1; i <= 3; i++) {
 const planetsurl = 'https://swapi.dev/api/planets';
 const ul = document.getElementById('#planets');
 
+
+
+ 

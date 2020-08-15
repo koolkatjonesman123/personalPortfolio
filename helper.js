@@ -2,44 +2,46 @@ export {getResponseJson, images, generateCard };
 
 let images = [{
     "name": "Dantooine", //name comes from Fetch api
-    "img": "Dantooine.jpeg"
+    "img": "images/Dantooine.jpeg"
 }, {
     "name": "Alderaan",
-    "img": "Alderaan.jpeg"
+    "img": "images/Alderaan.jpeg"
 }, {
     "name": "Yavin IV",
-    "img": "Yavin4.png"
+    "img": "images/Yavin4.png"
 }, {
     "name": "Bespin",
-    "img": "Bespin.png"
+    "img": "images/Bespin.png"
 }, {
     "name": "Bestine",
-    "img": "Bestine.png"
+    "img": "images/Bestine.png"
 }, {
     "name": "Cato Neimoidia",
-    "img": "CatoNeimoidia.png"
+    "img": "images/CatoNeimoidia.png"
 }, {
     "name": "Corellia",
-    "img": "Corellia.png"
+    "img": "images/Corellia.png"
 }, {
     "name": "Coruscant",
-    "img": "Coruscant.jpeg"
+    "img": "images/Coruscant.jpeg"
 }, {
     "name": "Kashyyyk",
-    "img": "Kashyyyk.png"
+    "img": "images/Kashyyyk.png"
 }, {
     "name": "Mustafar",
-    "img": "Mustafar.png"
+    "img": "images/Mustafar.png"
 }, {
     "name": "Utapau",
-    "img": "Utapau.png"
+    "img": "images/Utapau.png"
 }, {
     "name": "Hoth",
-    "img": "Hoth.png"
+    "img": "images/Hoth.png"
 }, {
     "name": "Rodia",
-    "img": "Rodia.png"
+    "img": "images/Rodia.png"
 }]
+
+
 
 /*fetchecs data endpoint and returns the body in json*/
 async function getResponseJson(endpoint) {
@@ -101,10 +103,10 @@ function generateCard(cardData) {
         cardFront.appendChild(nameTag)
 
     } else { ///Default Image
-        var imgEL = document.createElement('img')
-        imgEL.src = "Alderaan.jpeg"
+        var imgEL = document.createElement('image')
+        imgEL.src = "images/Alderaan.jpeg"
         //cardFront.appendChild(imgEL)
-        cardFront.style.backgroundImage = "url(/Alderaan.jpeg)"
+        cardFront.style.backgroundImage = "url(images/Alderaan.jpeg)"
         cardFront.appendChild(nameTag)
 
     }
@@ -136,7 +138,8 @@ function formFunction(event) {
         "name": formData.get("name"),
         "climate": formData.get("climate") ,
         "diameter": formData.get("diameter") , 
-        "gravity": formData.get("gravity")   
+        "gravity": formData.get("gravity")  
+         
 
     };
      console.log(ob)
@@ -159,4 +162,3 @@ function formFunction(event) {
 
 planetForm.addEventListener('submit', formFunction)
 //----------------------------------------------------------------------
-
